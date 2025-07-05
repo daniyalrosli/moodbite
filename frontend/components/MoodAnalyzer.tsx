@@ -30,11 +30,11 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.6 }}
-      className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-sm border border-white/20 p-8"
+      className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl shadow-sm border border-white/20 dark:border-slate-700/20 p-8 transition-colors duration-300"
     >
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-light text-slate-800 mb-3">How are you feeling?</h2>
-        <p className="text-slate-600 font-light">
+        <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-3 transition-colors duration-300">How are you feeling?</h2>
+        <p className="text-slate-600 dark:text-slate-300 font-light transition-colors duration-300">
           Describe your mood and we'll find the perfect food to match it
         </p>
       </div>
@@ -45,7 +45,7 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Tell us how you're feeling... (e.g., 'I feel tired and a bit down today')"
-            className="w-full h-32 p-6 border border-slate-200 rounded-2xl resize-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300 transition-all bg-white/50 backdrop-blur-sm text-slate-700 placeholder-slate-400 font-light"
+            className="w-full h-32 p-6 border border-slate-200 dark:border-slate-600 rounded-2xl resize-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 focus:border-blue-300 dark:focus:border-blue-600 transition-all bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 font-light"
             disabled={isAnalyzing}
           />
         </div>
@@ -72,7 +72,7 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
       </form>
 
       <div className="mt-8">
-        <h3 className="text-sm font-medium text-slate-700 mb-4 text-center">Try these examples:</h3>
+        <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-4 text-center transition-colors duration-300">Try these examples:</h3>
         <div className="flex flex-wrap gap-3 justify-center">
           {exampleTexts.map((example, index) => (
             <motion.button
@@ -81,7 +81,7 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
               whileTap={{ scale: 0.98 }}
               onClick={() => setText(example)}
               disabled={isAnalyzing}
-              className="px-4 py-2 text-sm bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full transition-colors disabled:opacity-50 font-light"
+              className="px-4 py-2 text-sm bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-full transition-colors disabled:opacity-50 font-light"
             >
               {example}
             </motion.button>

@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
       <Header />
       
       <main className="container mx-auto px-4 py-12">
@@ -47,12 +47,12 @@ export default function Home() {
             <div className="p-3 bg-gradient-to-r from-rose-400 to-pink-400 rounded-full shadow-sm">
               <Heart className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-5xl md:text-7xl font-light text-slate-800">
+            <h1 className="text-5xl md:text-7xl font-light text-slate-800 dark:text-white transition-colors duration-300">
               Moodbite
             </h1>
           </motion.div>
           
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-light leading-relaxed transition-colors duration-300">
             Discover the perfect food to match your mood. 
             Our AI analyzes your emotions and suggests personalized recommendations.
           </p>
@@ -74,12 +74,12 @@ export default function Home() {
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   className="inline-flex items-center gap-4 mb-6"
                 >
-                  <Loader2 className="w-8 h-8 text-slate-400" />
-                  <span className="text-lg font-medium text-slate-600">
+                  <Loader2 className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+                  <span className="text-lg font-medium text-slate-600 dark:text-slate-300 transition-colors duration-300">
                     Analyzing your mood...
                   </span>
                 </motion.div>
-                <p className="text-slate-500 text-sm">
+                <p className="text-slate-500 dark:text-slate-400 text-sm transition-colors duration-300">
                   Our AI is processing your emotions and finding the perfect food matches
                 </p>
               </motion.div>
@@ -90,10 +90,10 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="bg-red-50 border border-red-100 rounded-2xl p-8 text-center mt-8"
+                className="bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-2xl p-8 text-center mt-8 transition-colors duration-300"
               >
-                <p className="text-red-600 font-medium mb-2">Something went wrong</p>
-                <p className="text-red-500 text-sm">{error}</p>
+                <p className="text-red-600 dark:text-red-400 font-medium mb-2">Something went wrong</p>
+                <p className="text-red-500 dark:text-red-300 text-sm">{error}</p>
               </motion.div>
             )}
 
@@ -118,31 +118,31 @@ export default function Home() {
           className="mt-24 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto"
         >
           <div className="text-center p-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8 text-blue-500" />
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+              <Heart className="w-8 h-8 text-blue-500 dark:text-blue-400" />
             </div>
-            <h3 className="text-xl font-medium text-slate-800 mb-3">Mood Analysis</h3>
-            <p className="text-slate-600 leading-relaxed">
+            <h3 className="text-xl font-medium text-slate-800 dark:text-white mb-3 transition-colors duration-300">Mood Analysis</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
               Advanced AI technology understands your emotional state with high accuracy
             </p>
           </div>
 
           <div className="text-center p-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8 text-emerald-500" />
+            <div className="w-16 h-16 bg-gradient-to-r from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+              <Heart className="w-8 h-8 text-emerald-500 dark:text-emerald-400" />
             </div>
-            <h3 className="text-xl font-medium text-slate-800 mb-3">Smart Recommendations</h3>
-            <p className="text-slate-600 leading-relaxed">
+            <h3 className="text-xl font-medium text-slate-800 dark:text-white mb-3 transition-colors duration-300">Smart Recommendations</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
               Personalized food suggestions that match your mood and support your wellbeing
             </p>
           </div>
 
           <div className="text-center p-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-rose-100 to-pink-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <Heart className="w-8 h-8 text-rose-500" />
+            <div className="w-16 h-16 bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
+              <Heart className="w-8 h-8 text-rose-500 dark:text-rose-400" />
             </div>
-            <h3 className="text-xl font-medium text-slate-800 mb-3">Instant Results</h3>
-            <p className="text-slate-600 leading-relaxed">
+            <h3 className="text-xl font-medium text-slate-800 dark:text-white mb-3 transition-colors duration-300">Instant Results</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
               Get your personalized recommendations in seconds with our fast AI processing
             </p>
           </div>

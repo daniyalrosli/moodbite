@@ -4,213 +4,213 @@ import random
 class FoodRecommender:
     def __init__(self):
         """
-        Initialize the food recommender with mood-food mappings
+        Initialize the food recommender with mood-food mappings using Malaysian cuisine
         """
         self.mood_food_mapping = {
             "happy": [
                 {
-                    "name": "Fresh Fruit Smoothie Bowl",
-                    "description": "A vibrant, colorful smoothie bowl with berries, banana, and granola",
-                    "image": "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400",
+                    "name": "Nasi Lemak",
+                    "description": "Fragrant coconut rice with sambal, crispy anchovies, and boiled egg",
+                    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
                     "category": "breakfast",
-                    "mood_benefit": "Enhances your positive energy with natural sweetness and vitamins"
+                    "mood_benefit": "Malaysia's national dish brings joy and comfort with its rich flavors"
                 },
                 {
-                    "name": "Colorful Mediterranean Salad",
-                    "description": "Fresh vegetables, olives, and feta cheese with olive oil dressing",
-                    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
-                    "category": "lunch",
-                    "mood_benefit": "Light and refreshing, perfect for maintaining your happy mood"
-                },
-                {
-                    "name": "Dark Chocolate Covered Strawberries",
-                    "description": "Sweet strawberries dipped in rich dark chocolate",
+                    "name": "Cendol",
+                    "description": "Sweet dessert with green rice flour jelly, coconut milk, and palm sugar",
                     "image": "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400",
                     "category": "dessert",
-                    "mood_benefit": "A delightful treat that boosts serotonin and endorphins"
+                    "mood_benefit": "Refreshing and sweet, perfect for celebrating happy moments"
+                },
+                {
+                    "name": "Satay",
+                    "description": "Grilled meat skewers with peanut sauce and cucumber onion relish",
+                    "image": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400",
+                    "category": "appetizer",
+                    "mood_benefit": "Social food that brings people together and spreads joy"
                 }
             ],
             "sad": [
                 {
-                    "name": "Warm Chicken Noodle Soup",
-                    "description": "Homestyle soup with tender chicken, vegetables, and comforting noodles",
+                    "name": "Bubur Lambuk",
+                    "description": "Comforting rice porridge with meat, vegetables, and aromatic spices",
                     "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400",
-                    "category": "soup",
-                    "mood_benefit": "Comforting and warming, like a hug in a bowl"
-                },
-                {
-                    "name": "Grilled Cheese with Tomato Soup",
-                    "description": "Crispy grilled cheese sandwich with creamy tomato soup",
-                    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
                     "category": "comfort",
-                    "mood_benefit": "Classic comfort food that brings warmth and nostalgia"
+                    "mood_benefit": "Warm and nourishing, like a hug from Malaysian grandmother"
                 },
                 {
-                    "name": "Hot Chocolate with Marshmallows",
-                    "description": "Rich, creamy hot chocolate topped with fluffy marshmallows",
-                    "image": "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400",
+                    "name": "Teh Tarik",
+                    "description": "Pulled tea with condensed milk, smooth and comforting",
+                    "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400",
                     "category": "beverage",
-                    "mood_benefit": "Warming and sweet, helps boost mood with cocoa's natural compounds"
+                    "mood_benefit": "Soothing and sweet, helps lift spirits with its creamy warmth"
+                },
+                {
+                    "name": "Kuih Lapis",
+                    "description": "Layered steamed cake with coconut milk and pandan flavor",
+                    "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400",
+                    "category": "dessert",
+                    "mood_benefit": "Soft and sweet, provides comfort and gentle energy"
                 }
             ],
             "angry": [
                 {
-                    "name": "Cooling Cucumber Mint Water",
-                    "description": "Refreshing water infused with cucumber and mint",
+                    "name": "Air Bandung",
+                    "description": "Cooling rose syrup drink with milk, refreshing and calming",
                     "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400",
                     "category": "beverage",
-                    "mood_benefit": "Cooling and calming, helps reduce anger and frustration"
+                    "mood_benefit": "Cooling and sweet, helps calm heated emotions"
                 },
                 {
-                    "name": "Chamomile Tea with Honey",
-                    "description": "Soothing herbal tea with natural honey",
-                    "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400",
-                    "category": "tea",
-                    "mood_benefit": "Naturally calming properties help soothe anger and promote relaxation"
+                    "name": "Cucur Udang",
+                    "description": "Crispy prawn fritters with cooling cucumber and chili sauce",
+                    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
+                    "category": "snack",
+                    "mood_benefit": "Crunchy texture helps release tension, cooling accompaniments soothe"
                 },
                 {
-                    "name": "Fresh Fruit Popsicles",
-                    "description": "Homemade popsicles made with real fruit",
+                    "name": "Ais Kacang",
+                    "description": "Shaved ice dessert with red beans, sweet corn, and rose syrup",
                     "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
                     "category": "dessert",
-                    "mood_benefit": "Cooling and refreshing, helps calm heated emotions"
+                    "mood_benefit": "Cooling and refreshing, perfect for calming anger"
                 }
             ],
             "anxious": [
                 {
-                    "name": "Calming Lavender Chamomile Tea",
-                    "description": "Herbal tea blend with lavender and chamomile",
+                    "name": "Teh O Ais",
+                    "description": "Iced tea without milk, light and calming",
                     "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400",
-                    "category": "tea",
-                    "mood_benefit": "Lavender and chamomile have natural calming properties"
+                    "category": "beverage",
+                    "mood_benefit": "Light and refreshing, helps reduce anxiety without heaviness"
                 },
                 {
-                    "name": "Banana with Almond Butter",
-                    "description": "Sliced banana topped with creamy almond butter",
+                    "name": "Pisang Goreng",
+                    "description": "Crispy fried bananas, simple and comforting",
                     "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400",
                     "category": "snack",
-                    "mood_benefit": "Bananas contain tryptophan and magnesium, natural anxiety relievers"
+                    "mood_benefit": "Familiar comfort food that provides gentle energy"
                 },
                 {
-                    "name": "Oatmeal with Berries",
-                    "description": "Warm oatmeal topped with fresh berries and honey",
+                    "name": "Bubur Cha Cha",
+                    "description": "Sweet potato and yam dessert soup with coconut milk",
                     "image": "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?w=400",
-                    "category": "breakfast",
-                    "mood_benefit": "Complex carbs help stabilize blood sugar and reduce anxiety"
+                    "category": "dessert",
+                    "mood_benefit": "Warm and grounding, helps stabilize mood with natural sweetness"
                 }
             ],
             "stressed": [
                 {
-                    "name": "Green Tea with Lemon",
-                    "description": "Antioxidant-rich green tea with fresh lemon",
+                    "name": "Teh Halia",
+                    "description": "Ginger tea, warming and stress-relieving",
                     "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400",
                     "category": "tea",
-                    "mood_benefit": "L-theanine in green tea promotes relaxation without drowsiness"
+                    "mood_benefit": "Ginger's natural properties help reduce stress and promote calm"
                 },
                 {
-                    "name": "Dark Chocolate Covered Almonds",
-                    "description": "Almonds coated in rich dark chocolate",
+                    "name": "Kuih Dadar",
+                    "description": "Pandan crepes filled with coconut and palm sugar",
                     "image": "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400",
-                    "category": "snack",
-                    "mood_benefit": "Dark chocolate and almonds contain stress-reducing compounds"
+                    "category": "dessert",
+                    "mood_benefit": "Pandan's natural aroma has calming effects on the mind"
                 },
                 {
-                    "name": "Avocado Toast",
-                    "description": "Whole grain toast with mashed avocado and sea salt",
+                    "name": "Roti Canai",
+                    "description": "Flaky flatbread with curry sauce, simple and satisfying",
                     "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400",
                     "category": "breakfast",
-                    "mood_benefit": "Healthy fats and complex carbs help manage stress hormones"
+                    "mood_benefit": "Comforting and familiar, helps ground stressed emotions"
                 }
             ],
             "tired": [
                 {
-                    "name": "Energy-Boosting Smoothie",
-                    "description": "Banana, spinach, and protein powder smoothie",
+                    "name": "Kopi Tarik",
+                    "description": "Pulled coffee with condensed milk, energizing Malaysian style",
                     "image": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400",
                     "category": "beverage",
-                    "mood_benefit": "Natural energy boost without the crash of caffeine"
+                    "mood_benefit": "Strong coffee with smooth milk provides natural energy boost"
                 },
                 {
-                    "name": "Greek Yogurt with Granola",
-                    "description": "Protein-rich yogurt with crunchy granola and honey",
+                    "name": "Mee Goreng",
+                    "description": "Stir-fried noodles with vegetables, egg, and spicy sauce",
                     "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400",
-                    "category": "breakfast",
-                    "mood_benefit": "Protein and complex carbs provide sustained energy"
+                    "category": "lunch",
+                    "mood_benefit": "Spicy and flavorful, helps wake up tired senses"
                 },
                 {
-                    "name": "Quinoa Bowl with Vegetables",
-                    "description": "Nutritious quinoa with roasted vegetables and tahini dressing",
+                    "name": "Rendang",
+                    "description": "Slow-cooked beef in coconut milk and spices, rich and nourishing",
                     "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
-                    "category": "lunch",
-                    "mood_benefit": "Complete protein and nutrients help combat fatigue"
+                    "category": "dinner",
+                    "mood_benefit": "Protein-rich and flavorful, provides sustained energy"
                 }
             ],
             "bored": [
                 {
-                    "name": "Fun Rainbow Fruit Salad",
-                    "description": "Colorful mix of seasonal fruits in creative presentation",
+                    "name": "Rojak",
+                    "description": "Mixed fruit and vegetable salad with sweet-spicy sauce",
                     "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
-                    "category": "snack",
-                    "mood_benefit": "Vibrant colors and variety stimulate the senses"
+                    "category": "appetizer",
+                    "mood_benefit": "Colorful and varied textures stimulate the senses"
                 },
                 {
-                    "name": "Interactive Sushi Roll Making",
-                    "description": "DIY sushi with fresh ingredients and creative combinations",
+                    "name": "Char Kuey Teow",
+                    "description": "Stir-fried flat rice noodles with prawns, egg, and bean sprouts",
                     "image": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400",
                     "category": "dinner",
-                    "mood_benefit": "Engaging activity that makes eating fun and interactive"
+                    "mood_benefit": "Exciting flavors and textures make eating an adventure"
                 },
                 {
-                    "name": "Artistic Toast Creations",
-                    "description": "Decorated toast with various toppings and designs",
+                    "name": "Popiah",
+                    "description": "Fresh spring rolls with vegetables and sweet sauce",
                     "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400",
-                    "category": "breakfast",
-                    "mood_benefit": "Creative food presentation adds excitement to meals"
+                    "category": "appetizer",
+                    "mood_benefit": "Interactive food that requires attention and engagement"
                 }
             ],
             "excited": [
                 {
-                    "name": "Celebratory Chocolate Cake",
-                    "description": "Rich chocolate cake with festive decorations",
+                    "name": "Durian",
+                    "description": "King of fruits with rich, creamy texture and strong aroma",
                     "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400",
-                    "category": "dessert",
-                    "mood_benefit": "Perfect treat to match your high energy and excitement"
+                    "category": "fruit",
+                    "mood_benefit": "Bold and unique flavor matches your enthusiastic energy"
                 },
                 {
-                    "name": "Energizing Acai Bowl",
-                    "description": "Vibrant acai bowl with granola, fruits, and coconut",
+                    "name": "Laksa",
+                    "description": "Spicy noodle soup with coconut milk, prawns, and aromatic herbs",
                     "image": "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400",
-                    "category": "breakfast",
-                    "mood_benefit": "Antioxidant-rich superfood that matches your vibrant energy"
+                    "category": "soup",
+                    "mood_benefit": "Bold flavors and spices match your vibrant excitement"
                 },
                 {
-                    "name": "Spicy Tacos with Fresh Salsa",
-                    "description": "Flavorful tacos with homemade salsa and fresh ingredients",
+                    "name": "Sambal Udang",
+                    "description": "Spicy prawns in chili sauce, fiery and exciting",
                     "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400",
-                    "category": "dinner",
-                    "mood_benefit": "Bold flavors and spices match your enthusiastic mood"
+                    "category": "main",
+                    "mood_benefit": "Intense flavors and heat match your high energy"
                 }
             ],
             "neutral": [
                 {
-                    "name": "Balanced Buddha Bowl",
-                    "description": "Quinoa, roasted vegetables, and protein with tahini dressing",
+                    "name": "Nasi Campur",
+                    "description": "Mixed rice with various side dishes, balanced and complete",
                     "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
                     "category": "lunch",
                     "mood_benefit": "Well-balanced meal to maintain your steady mood"
                 },
                 {
-                    "name": "Herbal Tea Selection",
-                    "description": "Assortment of calming herbal teas",
+                    "name": "Teh O",
+                    "description": "Plain tea without milk, simple and grounding",
                     "image": "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400",
                     "category": "beverage",
-                    "mood_benefit": "Gentle and soothing, perfect for a calm state of mind"
+                    "mood_benefit": "Simple and soothing, perfect for a calm state of mind"
                 },
                 {
-                    "name": "Simple Grilled Chicken Salad",
-                    "description": "Fresh greens with grilled chicken and light vinaigrette",
+                    "name": "Ikan Bakar",
+                    "description": "Grilled fish with simple herbs and spices",
                     "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400",
-                    "category": "lunch",
+                    "category": "main",
                     "mood_benefit": "Light and nutritious, maintains your balanced state"
                 }
             ]
@@ -218,14 +218,14 @@ class FoodRecommender:
     
     def get_recommendations(self, mood: str, count: int = 3) -> List[Dict[str, Any]]:
         """
-        Get food recommendations based on mood
+        Get Malaysian food recommendations based on mood
         
         Args:
             mood (str): The detected mood
             count (int): Number of recommendations to return
             
         Returns:
-            List of food recommendation dictionaries
+            List of Malaysian food recommendation dictionaries
         """
         # Normalize mood to lowercase
         mood = mood.lower()
@@ -250,7 +250,7 @@ class FoodRecommender:
     
     def get_food_categories(self) -> List[str]:
         """
-        Get list of all food categories
+        Get list of all Malaysian food categories
         """
         categories = set()
         for mood_foods in self.mood_food_mapping.values():
