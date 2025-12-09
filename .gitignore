@@ -310,3 +310,6 @@ transformers_cache/
 .Trashes
 ehthumbs.db
 Thumbs.db 
+# Next.js build output
+frontend/.next/
+.next/
