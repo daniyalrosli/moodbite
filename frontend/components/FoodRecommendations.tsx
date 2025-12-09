@@ -1,6 +1,6 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Utensils, Heart } from 'lucide-react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Utensils, Heart, Sparkles, ChevronDown, ChevronUp, Star } from 'lucide-react'
 import { MoodAnalysisResponse } from '../lib/api'
 
 interface FoodRecommendationsProps {
@@ -22,25 +22,77 @@ const getMoodEmoji = (mood: string) => {
   return emojis[mood.toLowerCase()] || '😐'
 }
 
+const getMoodGradient = (mood: string) => {
+  const gradients: { [key: string]: string } = {
+    happy: 'from-amber-400 to-orange-500',
+    sad: 'from-blue-400 to-indigo-500',
+    angry: 'from-red-400 to-rose-500',
+    anxious: 'from-purple-400 to-pink-500',
+    stressed: 'from-cyan-400 to-blue-500',
+    tired: 'from-violet-400 to-purple-500',
+    bored: 'from-slate-400 to-gray-500',
+    excited: 'from-yellow-400 to-amber-500',
+    neutral: 'from-slate-400 to-slate-500'
+  }
+  return gradients[mood.toLowerCase()] || 'from-blue-400 to-indigo-500'
+}
+
 export default function FoodRecommendations({ result }: FoodRecommendationsProps) {
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
+
+  const toggleCard = (index: number) => {
+    setExpandedCard(expandedCard === index ? null : index)
+  }
+
   return (
     <div className="space-y-8">
       {/* Mood Analysis Result */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl shadow-sm border border-white/20 dark:border-slate-700/20 p-8 transition-colors duration-300"
+        className="relative overflow-hidden bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200/50 dark:border-slate-700/50 p-8 transition-all duration-300"
       >
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-4 p-6 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 mb-6 transition-colors duration-300">
-            <span className="text-4xl">{getMoodEmoji(result.mood)}</span>
-            <h2 className="text-3xl font-light text-slate-800 dark:text-white capitalize transition-colors duration-300">
-              {result.mood}
-            </h2>
-          </div>
-          <p className="text-slate-600 dark:text-slate-300 font-light transition-colors duration-300">
-            Confidence: <span className="font-medium text-blue-600 dark:text-blue-400">{(result.confidence * 100).toFixed(1)}%</span>
-          </p>
+        {/* Decorative background */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${getMoodGradient(result.mood)} opacity-5`} />
+        
+        <div className="relative text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+            className="inline-flex flex-col items-center"
+          >
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="text-7xl mb-4"
+            >
+              {getMoodEmoji(result.mood)}
+            </motion.div>
+            <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r ${getMoodGradient(result.mood)} shadow-lg mb-4`}>
+              <Sparkles className="w-5 h-5 text-white" />
+              <h2 className="text-2xl font-bold text-white capitalize">
+                {result.mood}
+              </h2>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-4 h-4 ${
+                      i < Math.round(result.confidence * 5)
+                        ? 'text-amber-400 fill-amber-400'
+                        : 'text-slate-300 dark:text-slate-600'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm font-medium">
+                {(result.confidence * 100).toFixed(0)}% confidence
+              </span>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
 
@@ -49,12 +101,22 @@ export default function FoodRecommendations({ result }: FoodRecommendationsProps
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-3xl shadow-sm border border-white/20 dark:border-slate-700/20 p-8 transition-colors duration-300"
+        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200/50 dark:border-slate-700/50 p-8 transition-all duration-300"
       >
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-light text-slate-800 dark:text-white mb-3 transition-colors duration-300">Recommended Foods</h2>
-          <p className="text-slate-600 dark:text-slate-300 font-light transition-colors duration-300">
-            Here are some foods that might help with your current mood
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.3, type: 'spring' }}
+            className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg shadow-emerald-500/30 mb-4"
+          >
+            <Utensils className="w-7 h-7 text-white" />
+          </motion.div>
+          <h2 className="text-2xl font-semibold text-slate-800 dark:text-white mb-2 transition-colors duration-300">
+            Perfect Foods for Your Mood
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 transition-colors duration-300">
+            Handpicked recommendations to enhance your well-being
           </p>
         </div>
 
@@ -62,29 +124,60 @@ export default function FoodRecommendations({ result }: FoodRecommendationsProps
           {result.food_recommendations.map((food, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 * index }}
-              className="bg-white/50 dark:bg-slate-700/50 backdrop-blur-sm rounded-2xl p-6 border border-white/30 dark:border-slate-600/30 hover:shadow-md transition-all"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index + 0.3 }}
+              whileHover={{ y: -4 }}
+              className="group bg-white dark:bg-slate-700/70 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-600/50 shadow-lg shadow-slate-200/30 dark:shadow-slate-900/30 hover:shadow-xl hover:shadow-slate-300/40 dark:hover:shadow-slate-900/40 transition-all duration-300"
             >
-              <img
-                src={food.image}
-                alt={food.name}
-                className="w-full h-40 object-cover rounded-xl mb-4"
-              />
-              <h3 className="font-medium text-lg text-slate-800 dark:text-white mb-3 transition-colors duration-300">
-                {food.name}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 font-light leading-relaxed transition-colors duration-300">
-                {food.description}
-              </p>
-              <div className="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-4 transition-colors duration-300">
-                <div className="flex items-start gap-3">
-                  <Heart className="w-4 h-4 text-blue-500 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                  <p className="text-xs text-blue-700 dark:text-blue-300 font-light leading-relaxed transition-colors duration-300">
-                    {food.mood_benefit}
-                  </p>
-                </div>
+              <div className="relative overflow-hidden">
+                <img
+                  src={food.image}
+                  alt={food.name}
+                  className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              
+              <div className="p-5">
+                <h3 className="font-semibold text-lg text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  {food.name}
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mb-4 leading-relaxed line-clamp-2">
+                  {food.description}
+                </p>
+                
+                <motion.button
+                  onClick={() => toggleCard(index)}
+                  className="w-full"
+                >
+                  <div className={`bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl p-4 transition-all duration-300 ${expandedCard === index ? 'ring-2 ring-blue-300 dark:ring-blue-700' : ''}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Heart className="w-4 h-4 text-blue-500 dark:text-blue-400" />
+                        <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Mood Benefit</span>
+                      </div>
+                      {expandedCard === index ? (
+                        <ChevronUp className="w-4 h-4 text-blue-500" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4 text-blue-500" />
+                      )}
+                    </div>
+                    <AnimatePresence>
+                      {expandedCard === index && (
+                        <motion.p
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-xs text-blue-600 dark:text-blue-300 mt-2 text-left leading-relaxed overflow-hidden"
+                        >
+                          {food.mood_benefit}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.button>
               </div>
             </motion.div>
           ))}
