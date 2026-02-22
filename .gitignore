@@ -313,3 +313,6 @@ Thumbs.db
 # Next.js build output
 frontend/.next/
 .next/
+
+# Local Netlify folder
+.netlify
