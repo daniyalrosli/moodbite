@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { ArrowRight, Loader2, AlertCircle } from 'lucide-react'
+import { validateMoodInput, sanitizeInput } from '@/lib/validation'
 
 interface MoodAnalyzerProps {
   onAnalyze: (text: string) => void
@@ -11,11 +12,21 @@ interface MoodAnalyzerProps {
 
 export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerProps) {
   const [text, setText] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (text.trim() && !isAnalyzing) {
-      onAnalyze(text.trim())
+    setError(null)
+    
+    const validation = validateMoodInput(text)
+    if (!validation.valid) {
+      setError(validation.error || 'Invalid input')
+      return
+    }
+    
+    if (!isAnalyzing) {
+      const sanitized = sanitizeInput(text)
+      onAnalyze(sanitized)
     }
   }
 
@@ -32,7 +43,10 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
         <div className="relative">
           <textarea
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => {
+              setText(e.target.value)
+              setError(null)
+            }}
             placeholder="How are you feeling right now?"
             rows={4}
             disabled={isAnalyzing}
@@ -42,6 +56,18 @@ export default function MoodAnalyzer({ onAnalyze, isAnalyzing }: MoodAnalyzerPro
             {text.length}/500
           </div>
         </div>
+
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="flex items-center gap-2 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+          >
+            <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0" />
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+          </motion.div>
+        )}
 
         <motion.button
           type="submit"

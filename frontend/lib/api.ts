@@ -153,4 +153,166 @@ export async function getHealth(): Promise<{ status: string; models_loaded: bool
   }
 
   return response.json()
-} 
+}
+
+// Spotify Music API Integration
+export interface SpotifyTrack {
+  id: string
+  name: string
+  artist: string
+  image_url?: string
+  preview_url?: string
+  external_url: string
+  uri: string
+  duration_ms: number
+  explicit: boolean
+}
+
+export interface SpotifyPlaylist {
+  id: string
+  name: string
+  description?: string
+  image_url?: string
+  external_url: string
+  total_tracks: number
+  followers: number
+  uri: string
+}
+
+export interface MusicRecommendationResponse {
+  mood: string
+  tracks: SpotifyTrack[]
+  playlists: SpotifyPlaylist[]
+  timestamp: string
+}
+
+export async function getMusicRecommendations(
+  mood: string,
+  limit: number = 10
+): Promise<MusicRecommendationResponse> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/music/recommendations/${encodeURIComponent(mood)}?limit=${limit}`
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch music recommendations')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching music recommendations:', error)
+    // Return empty response instead of crashing
+    return {
+      mood,
+      tracks: [],
+      playlists: [],
+      timestamp: new Date().toISOString()
+    }
+  }
+}
+
+export async function getPlaylistsForMood(
+  mood: string,
+  limit: number = 5
+): Promise<{ mood: string; playlists: SpotifyPlaylist[]; count: number }> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/music/playlists/${encodeURIComponent(mood)}?limit=${limit}`
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch playlists')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching playlists:', error)
+    return {
+      mood,
+      playlists: [],
+      count: 0
+    }
+  }
+}
+
+export async function getMusicGenres(): Promise<{
+  mood_genres: Record<string, { genres: string[]; description: string }>
+}> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/music/genres`)
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch genres')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching genres:', error)
+    return { mood_genres: {} }
+  }
+}
+
+export async function saveFavoriteTrack(
+  userId: string,
+  trackId: string,
+  trackName: string,
+  artist: string
+): Promise<{ message: string; id: string }> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/favorites-music/${encodeURIComponent(userId)}?track_id=${encodeURIComponent(trackId)}&track_name=${encodeURIComponent(trackName)}&artist=${encodeURIComponent(artist)}`,
+      { method: 'POST' }
+    )
+
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.detail || 'Failed to save favorite')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error saving favorite track:', error)
+    throw error
+  }
+}
+
+export async function removeFavoriteTrack(
+  userId: string,
+  trackId: string
+): Promise<{ message: string }> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/favorites-music/${encodeURIComponent(userId)}/${encodeURIComponent(trackId)}`,
+      { method: 'DELETE' }
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to remove favorite')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error removing favorite track:', error)
+    throw error
+  }
+}
+
+export async function getFavoriteTracks(
+  userId: string
+): Promise<{ tracks: Array<{ id: string; track_id: string; track_name: string; artist: string; added_at: string }>; count: number }> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/favorites-music/${encodeURIComponent(userId)}`
+    )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch favorite tracks')
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching favorite tracks:', error)
+    return { tracks: [], count: 0 }
+  }
+}

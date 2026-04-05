@@ -2,21 +2,9 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { MessageSquare, Brain, Utensils, ArrowRight } from 'lucide-react'
+import { MessageSquare, Brain, Utensils, ArrowRight, Sparkles } from 'lucide-react'
 import Link from 'next/link'
-
-const Header: React.FC = () => (
-  <header className="py-6">
-    <div className="container mx-auto px-4 flex items-center justify-between">
-      <h1 className="text-xl font-semibold text-neutral-900 dark:text-white">Moodbite</h1>
-      <nav>
-        <Link href="/" className="text-sm text-neutral-600 dark:text-neutral-400">
-          Home
-        </Link>
-      </nav>
-    </div>
-  </header>
-)
+import Header from '@/components/Header'
 
 export default function HowItWorksPage() {
   const steps = [
@@ -24,26 +12,54 @@ export default function HowItWorksPage() {
       number: '01',
       icon: MessageSquare,
       title: 'Share Your Mood',
-      description: 'Tell us how you\'re feeling using natural language. Be as detailed or brief as you like.'
+      description: "Tell us how you're feeling using natural language. Be as detailed or brief as you like. Just type what's on your mind."
     },
     {
       number: '02',
       icon: Brain,
       title: 'AI Analysis',
-      description: 'Our advanced NLP model processes your text to understand your emotional state accurately.'
+      description: 'Our advanced NLP model processes your text to understand your emotional state accurately, identifying key emotions and nuances.'
     },
     {
       number: '03',
       icon: Utensils,
       title: 'Get Recommendations',
-      description: 'Receive personalized food suggestions that can help enhance your current mood.'
+      description: 'Receive personalized food suggestions that can help enhance your current mood using nutritional science.'
     }
   ]
 
   const techItems = [
-    { label: 'Frontend', items: ['Next.js', 'TypeScript', 'Tailwind CSS'] },
-    { label: 'Backend', items: ['FastAPI', 'Python', 'MongoDB'] },
-    { label: 'AI/ML', items: ['Hugging Face', 'NLP Models', 'Emotion AI'] }
+    {
+      label: 'Frontend',
+      items: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Framer Motion']
+    },
+    {
+      label: 'Backend',
+      items: ['FastAPI', 'Python', 'MongoDB', 'Async/Await']
+    },
+    {
+      label: 'AI/ML',
+      items: ['Hugging Face', 'Transformers', 'DistilBERT', 'NLP']
+    }
+  ]
+
+  const features = [
+    {
+      title: 'Real-time Detection',
+      description: 'Instant mood analysis powered by transformer-based neural networks'
+    },
+    {
+      title: 'Personalized Results',
+      description: 'Recommendations tailored to your emotional state and preferences'
+    },
+    {
+      title: 'Save & Track',
+      description: 'Keep track of your mood patterns and food preferences over time'
+    },
+    {
+      title: 'Science-Backed',
+      description: 'Recommendations grounded in nutritional psychology research'
+    }
   ]
 
   return (
@@ -52,21 +68,32 @@ export default function HowItWorksPage() {
 
       <main className="container mx-auto px-4 py-16 md:py-24">
         {/* Hero */}
-        <div className="text-center mb-20">
+        <div className="max-w-3xl mx-auto text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded-full text-sm mb-6"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>How It Works</span>
+          </motion.div>
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-semibold text-neutral-900 dark:text-white mb-4 tracking-tight"
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-semibold text-neutral-900 dark:text-white mb-6"
           >
-            How It Works
+            Three Simple Steps to Better Food Choices
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-neutral-500 dark:text-neutral-400 max-w-md mx-auto"
+            transition={{ delay: 0.2 }}
+            className="text-lg text-neutral-600 dark:text-neutral-400"
           >
-            Three simple steps to discover food that matches your mood.
+            Our AI understands your emotions and recommends foods that can naturally support your mood and wellbeing.
           </motion.p>
         </div>
 
@@ -80,7 +107,7 @@ export default function HowItWorksPage() {
               transition={{ delay: index * 0.15 }}
               className="relative flex gap-6 pb-12 last:pb-0"
             >
-              {/* Timeline */}
+              {/* Timeline connector */}
               {index < steps.length - 1 && (
                 <div className="absolute left-6 top-14 w-px h-[calc(100%-3.5rem)] bg-neutral-200 dark:bg-neutral-800" />
               )}
@@ -106,12 +133,42 @@ export default function HowItWorksPage() {
           ))}
         </div>
 
+        {/* Features Grid */}
+        <div className="max-w-4xl mx-auto mb-20">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-3xl font-semibold text-neutral-900 dark:text-white mb-10 text-center"
+          >
+            Key Features
+          </motion.h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
+              >
+                <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
         {/* Tech Stack */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-3xl mx-auto mb-20"
         >
           <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-6 text-center">
             Built With
@@ -145,13 +202,13 @@ export default function HowItWorksPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="text-center mt-20"
+          className="text-center"
         >
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-medium rounded-xl hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-colors"
           >
-            Try It Now
+            Try Moodbite Now
             <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>

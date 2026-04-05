@@ -2,19 +2,9 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Heart, Users, Briefcase, GraduationCap, ArrowRight } from 'lucide-react'
+import { Heart, Users, Briefcase, GraduationCap, ArrowRight, Brain, Sparkles } from 'lucide-react'
 import Link from 'next/link'
-
-const Header: React.FC = () => (
-  <header className="container mx-auto px-4 py-6">
-    <div className="flex items-center justify-between">
-      <h1 className="text-xl font-semibold text-neutral-900 dark:text-white">Moodbite</h1>
-      <nav>
-        <Link href="/" className="text-neutral-600 dark:text-neutral-400 hover:underline">Home</Link>
-      </nav>
-    </div>
-  </header>
-)
+import Header from '@/components/Header'
 
 export default function AboutPage() {
   const useCases = [
@@ -35,7 +25,7 @@ export default function AboutPage() {
     },
     {
       icon: GraduationCap,
-      title: 'Research',
+      title: 'Education',
       description: 'Explore the connection between nutrition and emotional health.'
     }
   ]
@@ -46,23 +36,33 @@ export default function AboutPage() {
 
       <main className="container mx-auto px-4 py-16 md:py-24">
         {/* Hero */}
-        <div className="max-w-2xl mx-auto text-center mb-20">
+        <div className="max-w-3xl mx-auto text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded-full text-sm mb-6"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>About Moodbite</span>
+          </motion.div>
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
             className="text-4xl md:text-5xl font-semibold text-neutral-900 dark:text-white mb-6 tracking-tight"
           >
-            About Moodbite
+            Food That Understands Your Emotions
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.2 }}
             className="text-lg text-neutral-500 dark:text-neutral-400 leading-relaxed"
           >
-            Moodbite is an AI-powered platform that helps you discover the connection 
-            between your emotions and food. We believe that what you eat can positively 
-            influence how you feel.
+            Moodbite combines artificial intelligence and nutritional science to recommend
+            foods that match your emotional state, helping you nourish both body and mind.
           </motion.p>
         </div>
 
@@ -71,25 +71,39 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="max-w-3xl mx-auto mb-20"
+          className="max-w-2xl mx-auto mb-20"
         >
-          <div className="p-8 md:p-12 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl text-center">
-            <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-              Our Mission
-            </h2>
-            <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-              To bridge the gap between emotional well-being and nutrition. 
-              By understanding how you feel, we can suggest foods that not only 
-              satisfy your cravings but also support your mental and physical health.
-            </p>
+          <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8 md:p-12">
+            <div className="flex gap-4 mb-6">
+              <Brain className="w-8 h-8 text-neutral-900 dark:text-white flex-shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold text-neutral-900 dark:text-white mb-3">
+                  Our Mission
+                </h2>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+                  We believe that food is more than just sustenance—it's a powerful tool for
+                  emotional wellbeing. Our mission is to help you make food choices that
+                  support your mental health and emotional balance.
+                </p>
+                <p className="text-neutral-600 dark:text-neutral-400">
+                  By leveraging advanced AI and deep knowledge of nutrition, Moodbite creates
+                  a personalized connection between your emotions and your meals.
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
         {/* Use Cases */}
         <div className="max-w-4xl mx-auto mb-20">
-          <h2 className="text-lg font-medium text-neutral-900 dark:text-white mb-8 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-lg font-medium text-neutral-900 dark:text-white mb-8 text-center"
+          >
             Who It's For
-          </h2>
+          </motion.h2>
+
           <div className="grid sm:grid-cols-2 gap-4">
             {useCases.map((item, index) => (
               <motion.div
@@ -97,7 +111,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.1 }}
-                className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl"
+                className="p-6 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
               >
                 <div className="w-10 h-10 bg-neutral-100 dark:bg-neutral-800 rounded-lg flex items-center justify-center mb-4">
                   <item.icon className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
@@ -106,6 +120,51 @@ export default function AboutPage() {
                   {item.title}
                 </h3>
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Technology */}
+        <div className="max-w-2xl mx-auto mb-20">
+          <h2 className="text-3xl font-semibold text-neutral-900 dark:text-white mb-10 text-center">
+            The Technology Behind Moodbite
+          </h2>
+
+          <div className="space-y-6">
+            {[
+              {
+                title: 'Advanced NLP',
+                description:
+                  'We use state-of-the-art natural language processing to accurately detect your emotional state from text, understanding nuanced feelings and context.',
+                delay: 0
+              },
+              {
+                title: 'Nutritional Intelligence',
+                description:
+                  'Our food recommendations are grounded in nutritional science, selecting foods known to support specific emotional states through their chemical properties.',
+                delay: 0.1
+              },
+              {
+                title: 'Personalization',
+                description:
+                  'Over time, your mood history helps us understand your preferences and refine our recommendations to be more tailored to you.',
+                delay: 0.2
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: item.delay }}
+                className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6"
+              >
+                <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">
                   {item.description}
                 </p>
               </motion.div>
